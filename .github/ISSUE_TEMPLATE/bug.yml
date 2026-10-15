@@ -1,0 +1,8 @@
+name: Bug report
+description: probe template
+labels: [">bug", "needs:triage"]
+body:
+  - type: textarea
+    id: desc
+    attributes:
+      label: Description

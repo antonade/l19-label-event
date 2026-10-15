@@ -1,0 +1,21 @@
+name: probe
+on:
+  issues:
+    types: [opened, labeled, unlabeled, closed, reopened]
+permissions:
+  contents: read
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dump
+        env:
+          EV: ${{ github.event_name }}
+          ACT: ${{ github.event.action }}
+          LBL: ${{ github.event.label.name }}
+          ALL: ${{ toJSON(github.event.issue.labels.*.name) }}
+          NUM: ${{ github.event.issue.number }}
+          SENDER: ${{ github.event.sender.login }}
+        run: |
+          echo "PROBE event=$EV action=$ACT label=[$LBL] issue=$NUM sender=$SENDER"
+          echo "PROBE all_labels=$ALL"
